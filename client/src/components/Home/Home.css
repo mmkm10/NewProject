@@ -1,0 +1,14 @@
+.Home{
+  text-align: center;
+  font-size: 25px;
+}
+.Login{
+  margin-top: 700px;
+  text-align: center;
+  font-size: 50px;
+  size: 500vw;
+}
+body {
+  background-image: url('https://microsoft.acehacker.com/engage2021/img/demo-content/images/microsoft_teams.png');
+  background-size: cover;
+}
