@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
-import VC from './components/VideoChat/VC';
+import blank from './components/Blank/Blank';
 
 import './App.css';
 import Home from './components/Home/Home';
@@ -11,7 +11,7 @@ function App(){
       <BrowserRouter>
         <div className="App">
           <Route path="/" exact component={Home} />
-          <Route path={url} exact component={VC} />
+          <Route path="/Refresh" exact component={blank} />
 
         </div>
       </BrowserRouter>

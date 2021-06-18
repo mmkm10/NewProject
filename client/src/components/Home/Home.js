@@ -17,7 +17,7 @@ const history= useHistory();
           <h1> Welcome!</h1>
         </div>
         <div className="Login">
-        <button onClick={()=> history.push(url)}>LOGIN</button>
+        <button onClick={()=> history.push("/blank")}>LOGIN</button>
       </div>
       </div>
 
