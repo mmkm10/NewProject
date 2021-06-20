@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import { useHistory, BrowserRouter, Route } from 'react-router-dom';
 import './Blank.css';
-class Blank extends Component {
+function Blank() {
+    const history = useHistory();
 
-    render() {
-        return (
-            <div>
-                Hello to Blank Page
-            </div>
-        )
-    }
+
+    return (
+
+        <div className="VClogin">
+            <ul><button onClick={() => history.push("/Video")}> Enter code </button> </ul>
+            <button onClick={()=> alert( Math.random().toString(36).substring(2, 7))}>Generate Code</button>
+
+
+
+        </div>
+
+    )
 }
 
 export default Blank;

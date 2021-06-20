@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import url from '../VideoChat/url';
 
 function Home() {
-  
 const history= useHistory();
 
 //class Home extends Component {
@@ -17,7 +16,7 @@ const history= useHistory();
           <h1> Welcome!</h1>
         </div>
         <div className="Login">
-        <button onClick={()=> history.push("/blank")}>LOGIN</button>
+        <button onClick={()=> history.push("/Blank")}>LOGIN</button>
       </div>
       </div>
 
