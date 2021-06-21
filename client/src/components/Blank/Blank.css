@@ -1,7 +1,4 @@
-body{
-    background-color: white;
-    background-image: url('https://microsoft.acehacker.com/engage2021/img/demo-content/images/scrum_programmer.png');
-}
+
 .VClogin{
     text-align: left;
     margin-top: 100px;
@@ -10,5 +7,10 @@ body{
 .Chatlogin{
     text-align: left;
     font-size: large;
+
+}
+.bg{
+    background-size:cover;
+    background-image:url('https://microsoft.acehacker.com/engage2021/img/demo-content/images/scrum_programmer.png');
 
 }

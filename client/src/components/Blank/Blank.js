@@ -6,13 +6,13 @@ function Blank() {
 
 
     return (
+        <div className="bg">
+            <div className="VClogin">
+                <ul><button onClick={() => history.push("/Video")}> Enter code </button> </ul>
+                <button onClick={() => alert(Math.random().toString(36).substring(2, 7))}>Generate Code</button>
 
-        <div className="VClogin">
-            <ul><button onClick={() => history.push("/Video")}> Enter code </button> </ul>
-            <button onClick={()=> alert( Math.random().toString(36).substring(2, 7))}>Generate Code</button>
 
-
-
+            </div>
         </div>
 
     )
