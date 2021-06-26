@@ -3,12 +3,34 @@
   font-size: 25px;
 }
 .Login{
-  margin-top: 700px;
-  text-align: center;
-  font-size: 50px;
-  size: 500vw;
+  font-size: 25px;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: oblique;
+  margin-top: 200px;
+  min-width: 100px;
+  size: 5000vw;
+  margin-left: 50px;
+}
+#button-log {
+  color: black !important;
+  text-transform: uppercase;
+  font-size: 30px;
+  margin-left: 5vw;
+  text-decoration: none;
+  background: rgb(127, 216, 25);
+  padding: 15px;
+  border-radius: 20px;
+  display: inline-block;
+  border: none;
+  width: 10%;
+
 }
 .bg{
+  min-height: 800px;
   background-image: url('https://microsoft.acehacker.com/engage2021/img/demo-content/images/microsoft_teams.png');
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: 150px;
+  background-size: 100vh;
+  margin-right: 100px;
 }

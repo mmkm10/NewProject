@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.css';
 import { useHistory } from 'react-router-dom';
 
-import url from '../VideoChat/url';
 
 function Home() {
   const history = useHistory();
@@ -16,9 +15,16 @@ function Home() {
         <h1> Welcome!</h1>
       </div>
       <div className="Login">
-        <button onClick={() => history.push("/Blank")}>LOGIN</button>
+        <form>
+          <ul>     Name:        
+    <input type="text" name="name" /> </ul>
+          <ul> Password:
+    <input type="text" name="password" /></ul>
+
+        </form>
+        <button id="button-log" onClick={() => history.push("/Blank")}>LOGIN</button>
       </div>
-    </div>
+    </div >
 
   )
   //}
