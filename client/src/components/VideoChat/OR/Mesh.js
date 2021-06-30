@@ -1,44 +1,65 @@
 import React, { Component } from 'react';
-import { useLocation } from 'react-router-dom';
-import Video from './Video.js';
-import PeerConnection from './PeerCon.js';
-import { DEFAULT_CONSTRAINTS, DEFAULT_ICE_SERVERS, TYPE_ROOM, TYPE_ANSWER } from './constants';
-import { buildServers, generateRoomKey, createMessage, createPayload } from './utils';
-
+import Peer from 'peerjs';
 
 import Button from './buttons';
 
-function usePageViews() {
-    let location = useLocation();
+var peer = Peer( { config: {'iceServers': [
+    { url: 'stun:stun.l.google.com:19302' },
+    { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
+  ]} /* Sample servers, please use appropriate ones */
+});
+var constraints = { audio: true, video: { width: 1280, height: 720 } };
 
-}
+navigator.mediaDevices.getUserMedia(constraints)
+    .then(function (mediaStream) {
+        var video = document.querySelector('video');
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function (e) {
+            video.play();
+        };
+    })
+    .catch(function (err) { console.log(err.name + ": " + err.message); });
+peer.on('open', function(id) {
+    console.log('My peer ID is: ' + id);
+  });
 
-class Mesh extends Component{
+  var conn = peer.connect('dest-peer-id');
+  peer.on('connection', function(conn) { 
+      console.log(conn);
+   });
+
+   conn.on('open', function() {
+    // Receive messages
+    conn.on('data', function(data) {
+      console.log('Received', data);
+    });
+  
+    // Send messages
+    conn.send('Hello!');
+  });
+  var call = peer.call('dest-peer-id',
+  mediaStream);
+  peer.on('call', function(call) {
+    // Answer the call, providing our mediaStream
+    call.answer(mediaStream);
+  });
+
+  call.on('stream', function(stream) {
+    // `stream` is the MediaStream of the remote peer.
+    // Here you'd add it to an HTML video/canvas element.
+  });
+class Mesh extends Component {
 
     constructor(props) {
         super(props);
-        const { mediaConstraints, iceServers } = props;
-        // build iceServers config for RTCPeerConnection
-        const iceServerURLs = buildServers(iceServers);
-        this.state = {
-            iceServers: iceServerURLs || DEFAULT_ICE_SERVERS,
-            mediaConstraints: mediaConstraints || DEFAULT_CONSTRAINTS,
-            localMediaStream: null,
-            remoteMediaStream: null,
-            roomKey: null,
-            socketID: null,
-            connectionStarted: false,
-            text: ''
-        };
-        this.wantCamera = true;
-        this.rtcPeerConnection = new RTCPeerConnection({ iceServers: this.state.iceServers });
+
+
     }
+    
 
     render() {
         return (
             <>
-                <PeerConnection />
-                <Video />
                 <Button />
             </>
         )

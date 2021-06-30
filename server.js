@@ -1,37 +1,50 @@
-const path = require('path');
-const express = require('express');
-const https = require('http');
-
+require('dotenv').config();
+const express= require('express');
+const http = require('http');
 const app = express();
-const PORT = 5000;
-const SignalServer = require('./lib/server/SignalServer');
+const server = http.createServer(app);
+const socket =require('socket.io');
+const io = socket(server);
 
-app.get('/main.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/main.js'));
-});
-app.get('/index.css', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/index.css'));
-});
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-});
-// Adding in a express server to HTTPS to allow HTTPS
-const server = https.createServer(
-  // {
-  //   key: fs.readFileSync(path.resolve(__dirname, './ssl_diane/server.key')),
-  //   // // is required to allow localhost to run on HTTPS
-  //   // // otherwise you either get an error or a certified invalid warning
-  //   cert: fs.readFileSync(path.resolve(__dirname, './ssl_diane/server.crt')),
-  // },
-  app,
-);
+const users = {};
 
-// WEBSOCKET SECURED CONNECTION //
-// const wss = new WebSocket.Server({ server });
-const signal = new SignalServer({ server });
-signal.connect();
-// const wss = new WebSocket.Server({ port: PORT });
+const socketToRoom = {};
 
-server.listen(PORT, () => {
-  console.log('\nListening on PORT: ', PORT);
+io.on('connection', socket => {
+    socket.on("join room", roomID => {
+        if (users[roomID]) {
+            const length = users[roomID].length;
+            if (length === 4) {
+                socket.emit("room full");
+                return;
+            }
+            users[roomID].push(socket.id);
+        } else {
+            users[roomID] = [socket.id];
+        }
+        socketToRoom[socket.id] = roomID;
+        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
+
+        socket.emit("all users", usersInThisRoom);
+    });
+
+    socket.on("sending signal", payload => {
+        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
+    });
+
+    socket.on("returning signal", payload => {
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
+    });
+
+    socket.on('disconnect', () => {
+        const roomID = socketToRoom[socket.id];
+        let room = users[roomID];
+        if (room) {
+            room = room.filter(id => id !== socket.id);
+            users[roomID] = room;
+        }
+    });
+
 });
+
+server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'));
