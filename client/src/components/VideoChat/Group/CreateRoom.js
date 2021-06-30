@@ -10,7 +10,10 @@ const CreateRoom = (props) => {
 
     return (
         <div id="BTN">
-        <button onClick={create}>Create room</button>
+            <button className="chat-button" onClick={create}>Create room</button>
+            <form>
+                <ul> <button className="chat-button" >Enter Link</button></ul>
+            </form>
         </div>
     );
 };
