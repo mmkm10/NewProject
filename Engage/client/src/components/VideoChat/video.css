@@ -1,0 +1,16 @@
+#BTN{
+    margin-left: 1000px;
+    margin-top: 200px;
+}
+.chat-button {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #1a6eff;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    width: 20%;
+    margin-left: 30px;
+}
