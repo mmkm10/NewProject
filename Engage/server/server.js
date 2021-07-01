@@ -3,9 +3,15 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
-const socket = require("socket.io");
-const io = socket(server);
-
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "http://localhost:8100",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
+});
 const users = {};
 
 const socketToRoom = {};
