@@ -1,6 +1,7 @@
 #BTN{
     margin-left: 1000px;
     margin-top: 200px;
+
 }
 .chat-button {
     color: #fff !important;
@@ -13,4 +14,9 @@
     border: none;
     width: 20%;
     margin-left: 30px;
+}
+#mute{
+    background-color: red;
+    height: 100px;
+    width: 100px;
 }
