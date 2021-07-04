@@ -5,19 +5,13 @@ import styled from "styled-components";
 import sharescreen from './share';
 import './video.css';
 
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    margin-left: 150px;
-    flex-wrap: wrap;
-`;
 
 
 const StyledVideo = styled.video`
-    height: 40%;
-    width: 50%;    
+    height:500px;
+    width 800px;
+    justify-content:centre;
+
 `;
 var localstream;
 
@@ -37,7 +31,7 @@ const Video = (props) => {
 }
 
 
-const Constraints={
+const Constraints = {
     video: true,
     audio: true
 }
@@ -48,9 +42,9 @@ const Room = (props) => {
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
-
     const roomID = props.match.params.roomID;
-  
+    const [cam, setCam] = useState(true);
+    const [mute, setMute] = useState(true);
     useEffect(() => {
         socketRef.current = io.connect("/");
         navigator.mediaDevices.getUserMedia(Constraints).then(stream => {
@@ -120,33 +114,32 @@ const Room = (props) => {
 
     function muteCam() {
         userVideo.current.srcObject.getVideoTracks().forEach(track => track.enabled = !track.enabled);
+        setCam(!cam);
+
     }
 
     function muteAudio() {
         userVideo.current.srcObject.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        return(
-            <div id="mute">
-                u r muted
-            </div>
-        )
-
+        setMute(!mute);
     }
+
 
     return (
         <>
-            <button  onClick={()=>(muteCam())}>Video off</button>
-            <button  onClick={()=>(muteAudio())}>Mute</button>
-
-            <Container>
+            <div className="Container">
+            <div className="grid-container">
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                {peers.map((peer, index) => {
-                    return (
+                    {peers.map((peer, index) => {
+                        return (
+                            <div> <Video key={index} peer={peer} /> </div>
+                        );
+                    })}
+                </div>
+            </div>
 
-                        <Video key={index} peer={peer} />
 
-                    );
-                })}
-            </Container>
+            <button className={cam ? "mute" : "unmute"} onClick={() => (muteCam())}>Video off</button>
+            <button className={mute ? "mute" : "unmute"} onClick={() => (muteAudio())}>Mute</button>
         </>
     );
 };

@@ -15,8 +15,39 @@
     width: 20%;
     margin-left: 30px;
 }
-#mute{
-    background-color: red;
-    height: 100px;
-    width: 100px;
+.mute {
+    background-color: wheat;
+    height:50px;
+    width: 80px;
+    margin-top: 0vw;
 }
+
+.unmute{
+    background-color: red;
+    height:50px;
+    width: 80px;
+    background-position-x: 100px;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 80vh 80vh;
+    grid-gap: 10px;
+
+  }
+  
+  .grid-container > div {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 30px;
+    transform: scale(150%);
+
+  }
+.Container {
+    padding: 20px;
+    height: 40vh;
+    width: 50vw;
+    margin-left: 380px;
+}
+
+
