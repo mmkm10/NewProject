@@ -17,12 +17,26 @@ import Video from '../VideoChat/Room';
 const auth = myFirebase.auth();
 const firestore = myFirestore;
 
+function Popup(){
+  const handleClick = () => {
+    this.props.toggle();
+  };
+  return(
+    <div className="modal_content">
+    <span className="close" onClick={()=>handleClick}>&times;    </span>
+    <Video />
+  </div>
+  )
+}
 
 function Chat() {
 
   const [user] = useAuthState(auth);
   const id = uuid();
-  const history=useHistory();
+  const history = useHistory();
+  const[state, setState]=useState(false);
+
+  
 
   return (
     <div className="App">
@@ -30,9 +44,8 @@ function Chat() {
         <h1>⚛️🔥💬</h1>
         <SignOut />
       </header>
-    <button onClick={()=>history.push(`/room/${id}`)}> Video
-    
-    </button>
+      <button onClick={()=> Popup()}>Video</button>
+
       <section>
         {user ? <ChatRoom /> : <SignIn />}
       </section>
