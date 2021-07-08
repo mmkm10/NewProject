@@ -127,7 +127,6 @@ const Room = (props) => {
     return (
         <>
             <div className="Container">
-            <div className="grid-container">
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
                     {peers.map((peer, index) => {
                         return (
@@ -135,11 +134,13 @@ const Room = (props) => {
                         );
                     })}
                 </div>
-            </div>
+
 
 
             <button className={cam ? "mute" : "unmute"} onClick={() => (muteCam())}>Video off</button>
             <button className={mute ? "mute" : "unmute"} onClick={() => (muteAudio())}>Mute</button>
+            <button className="mute" onClick={() => props.history.push(`/Login`)}>End</button>
+
         </>
     );
 };

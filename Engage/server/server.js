@@ -3,15 +3,18 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+const indexRouter = require('./routes/indexRoute');
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:8000",
+        origin: "http://localhost:3001",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true
     },
     allowEIO3: true
 });
+
 const users = {};
 
 const socketToRoom = {};
@@ -52,6 +55,8 @@ io.on('connection', socket => {
     });
 
 });
+
+
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'));
 

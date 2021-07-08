@@ -1,11 +1,14 @@
 import React from "react";
 import "./Home.css"
-import { GoogleLogin } from 'react-google-login';
+import Login from './Login';
+import Segment from '../Segment/segment'
+import { useAuth0 } from '@auth0/auth0-react';
+import {myFirebase, myFirestore} from '../../Config/MyFirebase'
+
+const auth=myFirebase.auth();
 
 
-const responseGoogle = (response) => {
-    console.log(response);
-}
+
 const Home = (props) => {
     function logg() {
         props.history.push(`/Login`);
@@ -18,14 +21,14 @@ const Home = (props) => {
                 <h1> Welcome!</h1>
             </div>
             <div className="Login">
-                <GoogleLogin
-                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-                <button id="button-log" onClick={logg}>Login</button>
+
+
+                <section>
+
+
+                     <Login />
+                </section>
+                <button id="button-log" onClick={logg}>Login as a Guest</button>
             </div>
         </div >
 
