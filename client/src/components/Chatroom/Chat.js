@@ -12,21 +12,13 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { myFirebase, myFirestore } from '../../Config/MyFirebase';
 
 import SignIn from "../Home/Login"
-import Video from '../VideoChat/Room';
 
 const auth = myFirebase.auth();
 const firestore = myFirestore;
 
-function Popup(){
-  const handleClick = () => {
-    this.props.toggle();
-  };
-  return(
-    <div className="modal_content">
-    <span className="close" onClick={()=>handleClick}>&times;    </span>
-    <Video />
-  </div>
-  )
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
 }
 
 function Chat() {
@@ -34,23 +26,25 @@ function Chat() {
   const [user] = useAuthState(auth);
   const id = uuid();
   const history = useHistory();
-  const[state, setState]=useState(false);
+  //const [currentRoom]=useState(window.location.href);
 
-  
+
 
   return (
-    <div className="App">
+    <div className="app">
       <header>
-        <h1>⚛️🔥💬</h1>
         <SignOut />
+        <button className="mute" onClick={() => history.push(`/Login`)}>Go back</button>
+
+        <button onClick={() => openInNewTab(`/room/${id}`)}> Video! </button>
+
       </header>
-      <button onClick={()=> Popup()}>Video</button>
 
       <section>
-        {user ? <ChatRoom /> : <SignIn />}
+        {user ? <ChatRoom  /> : <SignIn />}
       </section>
 
-    </div>
+    </div >
   );
 }
 
@@ -62,11 +56,14 @@ function SignOut() {
   )
 }
 
-
-function ChatRoom() {
+const ChatRoom = () => {
+  const currentRoom= window.location.href;
   const dummy = useRef();
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef
+    .where("room", "==", currentRoom)
+    .orderBy("createdAt")
+    .limit(25);
 
   const [messages] = useCollectionData(query, { idField: 'id' });
 
@@ -80,7 +77,8 @@ function ChatRoom() {
 
     await messagesRef.add({
       text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      room: currentRoom,
+      createdAt: myFirestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
     })
@@ -100,9 +98,9 @@ function ChatRoom() {
 
     <form onSubmit={sendMessage}>
 
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
+      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type..." />
 
-      <button type="submit" disabled={!formValue}>🕊️</button>
+      <button type="submit" disabled={!formValue}>Send!</button>
 
     </form>
   </>)
@@ -115,6 +113,7 @@ function ChatMessage(props) {
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
+  
     <div className={`message ${messageClass}`}>
       <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
       <p>{text}</p>

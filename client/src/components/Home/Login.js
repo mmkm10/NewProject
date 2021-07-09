@@ -4,6 +4,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { myFirebase, myFirestore } from '../../Config/MyFirebase';
 
+import './Home.css'
+
 const auth = myFirebase.auth();
 
 function Login() {
@@ -13,7 +15,7 @@ function Login() {
         const provider = new myFirebase.auth.GoogleAuthProvider();
         if (!user) {
             // User not logged in, start login.
-            auth().signInWithPopup(provider);
+            auth.signInWithPopup(provider);
         } else {
             // user logged in, go to home page.
             window.location='Login';
@@ -27,5 +29,4 @@ function Login() {
 
     )
 }
-
 export default Login;

@@ -1,4 +1,5 @@
 import React from "react";
+import Logout from "../Home/Logout";
 import "./segment.css"
 const Login = (props) => {
     function create() {
@@ -7,13 +8,20 @@ const Login = (props) => {
     function chatr() {
         props.history.push('/chatroom')
     }
+    function Profile() {
+        props.history.push('/profile')
+    }
 
     return (
+
         <div className="b">
             <div className="VClogin">
+
+                <button onClick={() => Profile()}>Profile</button>
+
                 <ul> <button className="chat-button" onClick={create}>Video Chat</button></ul>
                 <ul> <button className="chat-button" onClick={chatr}>Chat Room</button></ul>
-
+                <Logout />
 
             </div>
         </div>

@@ -8,8 +8,8 @@ import './video.css';
 
 
 const StyledVideo = styled.video`
-    height:500px;
-    width 800px;
+    height:400px;
+    width 700px;
     justify-content:centre;
 
 `;
