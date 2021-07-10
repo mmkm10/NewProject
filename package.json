@@ -5,7 +5,6 @@
   "scripts": {
     "start": "npm start",
     "build": "npm build",
-    "test": "npm test",
     "eject": "npm eject"
     },
   "repository": {
