@@ -1,5 +1,5 @@
 {
-  "name": "group-video-final",
+  "name": "new-project",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -20,6 +20,6 @@
   },
   "scripts": {
     "start": "PROD=true node server.js",
-    "postinstall": "cd ./client && yarn"
+    "postinstall": "cd ./client && npm start"
   }
 }
