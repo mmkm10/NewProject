@@ -15,13 +15,14 @@ const Login = (props) => {
     return (
 
         <div className="b">
+                            <Logout />
+
             <div className="VClogin">
 
-                <button onClick={() => Profile()}>Profile</button>
+                <button button id="profile" onClick={() => Profile()}>Profile</button>
 
                 <ul> <button className="chat-button" onClick={create}>Video Chat</button></ul>
                 <ul> <button className="chat-button" onClick={chatr}>Chat Room</button></ul>
-                <Logout />
 
             </div>
         </div>

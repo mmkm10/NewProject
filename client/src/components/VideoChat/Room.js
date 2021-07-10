@@ -13,7 +13,6 @@ const StyledVideo = styled.video`
     justify-content:centre;
 
 `;
-var localstream;
 
 const Video = (props) => {
     const ref = useRef();

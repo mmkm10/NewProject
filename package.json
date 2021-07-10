@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
   "dependencies": {
     "@auth0/auth0-react": "^1.5.0",
+    "@ionic/react": "^5.6.11",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "react-emoji": "^0.5.0",
     "react-google-login": "^5.2.2",
     "react-loading": "^2.0.3",
+    "rodal": "^1.8.1",
     "socket.io": "^2.3.0"
   },
   "scripts": {

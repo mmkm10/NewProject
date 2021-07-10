@@ -28,7 +28,7 @@ const Home = (props) => {
 
                      <Login />
                 </section>
-                <button id="button-log" onClick={logg}>Login as a Guest</button>
+           <ul>     <button id="button-log" onClick={logg}>Login as a Guest</button></ul>
             </div>
         </div >
 

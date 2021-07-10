@@ -1,46 +1,21 @@
-import React, { Component } from "react";
-import Video from "../VideoChat/Room";
-import { useHistory } from "react-router";
-import { v1 as uuid } from "uuid";
+import React, { useState } from 'react';
+import { v1 as uuid } from 'uuid';
+import { IonModal, IonButton, IonContent } from '@ionic/react';
+import Room from '../VideoChat/Room';
+import { Redirect, useHistory } from 'react-router';
 
-const id = uuid();
-
-class PopUp extends Component {
-  handleClick = (props) => {
-   this.props.toggle();
-   props.history.push(`/room/${id}`);
-
-
-  };
-  
-render() {
+const ModalExample =() => {
+  const id=uuid();
+  const [showModal, setShowModal] = useState(false);
+  const history=useHistory();
   return (
-   <div className="modal">
-     <div className="modal_content">
-     <span className="close" onClick={this.handleClick}>&times;    </span>
-
-    </div>
-   </div>
+    <IonContent>
+      <IonModal isOpen={showModal} >
+        <Redirect to="/room/${id}" />
+        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+      </IonModal>
+      <IonButton onClick={() => setShowModal(true)}>Show Modal</IonButton>
+    </IonContent>
   );
- }
-}
-export default class App extends React.Component {
-    state = {
-     seen: false
-     };
-    togglePop = () => {
-     this.setState({
-      seen: !this.state.seen
-     });
-    };
-  render() {
-    return (
-     <div>
-      <div className="btn" onClick={this.togglePop}>
-        <button>Video!</button>
-      </div>
-      {this.state.seen ? <PopUp toggle={this.togglePop} /> : null}
-     </div>
-    );
-   }
-  }
+};
+export default ModalExample;

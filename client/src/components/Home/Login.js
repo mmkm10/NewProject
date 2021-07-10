@@ -24,7 +24,7 @@ function Login() {
 
     return (
         <>
-            <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+         <ul>   <button id="button-log" onClick={signInWithGoogle}>Sign in with Google</button> </ul>
         </>
 
     )

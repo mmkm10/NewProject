@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { v1 as uuid } from 'uuid';
 import './Chat.css';
-
+import Popup from './popup';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
@@ -35,13 +35,12 @@ function Chat() {
       <header>
         <SignOut />
         <button className="mute" onClick={() => history.push(`/Login`)}>Go back</button>
-
-        <button onClick={() => openInNewTab(`/room/${id}`)}> Video! </button>
+        <Popup/>
 
       </header>
 
       <section>
-        {user ? <ChatRoom  /> : <SignIn />}
+        {user ? <ChatRoom /> : <SignIn />}
       </section>
 
     </div >
@@ -57,11 +56,11 @@ function SignOut() {
 }
 
 const ChatRoom = () => {
-  const currentRoom= window.location.href;
+  const currentRoom = window.location.href;
   const dummy = useRef();
   const messagesRef = firestore.collection('messages');
   const query = messagesRef
-    .where("room", "==", currentRoom)
+    //.where("room", "==", currentRoom)
     .orderBy("createdAt")
     .limit(25);
 
@@ -77,8 +76,8 @@ const ChatRoom = () => {
 
     await messagesRef.add({
       text: formValue,
-      room: currentRoom,
-      createdAt: myFirestore.FieldValue.serverTimestamp(),
+      //  room: currentRoom,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
     })
@@ -90,7 +89,7 @@ const ChatRoom = () => {
   return (<>
     <main>
 
-      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      {messages && messages.map(msg => <ChatMessage message={msg} key={msg.id} />)}
 
       <span ref={dummy}></span>
 
@@ -100,7 +99,7 @@ const ChatRoom = () => {
 
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type..." />
 
-      <button type="submit" disabled={!formValue}>Send!</button>
+      <button type="submit" disabled={!formValue} onClick={() => console.log(formValue)}>Send!</button>
 
     </form>
   </>)
@@ -113,7 +112,7 @@ function ChatMessage(props) {
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
-  
+
     <div className={`message ${messageClass}`}>
       <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
       <p>{text}</p>

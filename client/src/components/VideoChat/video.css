@@ -16,17 +16,24 @@
     margin-left: 30px;
 }
 .mute {
+    display: inline-block;
+    justify-self: center;
+    text-align: right;
     background-color: wheat;
     height:50px;
     width: 80px;
-    margin-top: 0vw;
+    margin-left: 20px;
 }
 
 .unmute{
+    display: inline-block;
+
     background-color: red;
     height:50px;
     width: 80px;
     background-position-x: 100px;
+    margin-left: 20px;
+
 }
 .grid-container {
     display: grid;
