@@ -38,16 +38,17 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          path: build
+          name: build
+          path: public
       - name: Download Build
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: build
+          path: public
       - name: Depoy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   
