@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "cd ./client && npm start",
+    "postinstall": "cd ./client",
     "start": "npm start",
     "build": "npm build",
     "eject": "npm eject"
