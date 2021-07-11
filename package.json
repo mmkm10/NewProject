@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm start",
+    "postinstall": "npm run build",
+    "start": "node server/server.js",
     "build": "npm build",
     "eject": "npm eject"
     },
