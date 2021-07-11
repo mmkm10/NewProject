@@ -1,9 +1,10 @@
 {
-  "name": "NewProject",
+  "name": "newproject",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "client/src/index.js",
   "scripts": {
+    "start": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
